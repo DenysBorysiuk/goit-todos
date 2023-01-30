@@ -1,7 +1,11 @@
 import { Todo } from 'components/Todo/Todo';
-import { List } from './TodoList.styled';
+import { List } from './TodoListCompleted.styled';
 
-export const TodoList = ({ todos, onDeleteTodo, onTogleCompleted }) => (
+export const TodoListCompleted = ({
+  todos,
+  onDeleteTodo,
+  onTogleCompleted,
+}) => (
   <List>
     {todos.map(({ id, text, completed }) => (
       <Todo

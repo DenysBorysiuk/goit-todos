@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { TodoList } from './TodoList/TodoList';
 import { TodoForm } from './TodoForm/TodoForm';
-import { Filter } from './Filter/Filter';
+import { Subtitle } from './Subtitle/Subtitle';
+import { Title, Container, Lists } from './App.styled';
 
 export const App = () => {
   const [todos, setTodos] = useState(
     () => JSON.parse(window.localStorage.getItem('todos')) ?? []
   );
-  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     window.localStorage.setItem('todos', JSON.stringify(todos));
@@ -36,33 +36,53 @@ export const App = () => {
     );
   };
 
-  const changeFilter = e => setFilter(e.target.value);
-
-  const getVisibleTodos = () => {
-    const normalizedFilter = filter.toLowerCase();
-
-    return todos.filter(todo =>
-      todo.text.toLowerCase().includes(normalizedFilter)
-    );
-  };
-
-  const completedTodos = todos.reduce(
-    (acc, todo) => (todo.completed ? acc + 1 : acc),
-    0
-  );
+  const getCompletedTodos = () => todos.filter(todo => todo.completed === true);
+  const getInprogressTodos = () => todos.filter(todo => !todo.completed);
 
   return (
-    <div>
-      <h1>Todos</h1>
-      <p>All: {todos.length}</p>
-      <p>Completed: {completedTodos}</p>
-      <TodoForm addTodo={addTodo} />
-      <Filter value={filter} onChangeFilter={changeFilter} />
-      <TodoList
-        todos={getVisibleTodos()}
-        onDeleteTodo={deleteTodo}
-        onTogleCompleted={togleCompleted}
-      />
-    </div>
+    <Container>
+      <Title>Todos List</Title>
+      <div>
+        <TodoForm addTodo={addTodo} />
+        <Lists>
+          <li>
+            <Subtitle
+              text={'All'}
+              value={todos.length}
+              allTodos={todos.length}
+            />
+            <TodoList
+              todos={todos}
+              onDeleteTodo={deleteTodo}
+              onTogleCompleted={togleCompleted}
+            />
+          </li>
+          <li>
+            <Subtitle
+              text={'InProgress'}
+              value={getInprogressTodos().length}
+              allTodos={todos.length}
+            />
+            <TodoList
+              todos={getInprogressTodos()}
+              onDeleteTodo={deleteTodo}
+              onTogleCompleted={togleCompleted}
+            />
+          </li>
+          <li>
+            <Subtitle
+              text={'Completed'}
+              value={getCompletedTodos().length}
+              allTodos={todos.length}
+            />
+            <TodoList
+              todos={getCompletedTodos()}
+              onDeleteTodo={deleteTodo}
+              onTogleCompleted={togleCompleted}
+            />
+          </li>
+        </Lists>
+      </div>
+    </Container>
   );
 };

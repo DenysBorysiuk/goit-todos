@@ -1,3 +1,6 @@
+import { Item, Button, WrapTodo, TodoText, Label } from './Todo.styled';
+import { FaRegTrashAlt } from 'react-icons/fa';
+
 export const Todo = ({
   id,
   text,
@@ -6,19 +9,22 @@ export const Todo = ({
   onTogleCompleted,
 }) => {
   return (
-    <li>
-      <p>{text}</p>
-      <label>
-        <input
-          type="checkbox"
-          name="agreed"
-          checked={completed}
-          onChange={() => onTogleCompleted(id)}
-        />
-      </label>
-      <button type="button" onClick={() => onDeleteTodo(id)}>
-        del
-      </button>
-    </li>
+    <Item>
+      <TodoText>{text}</TodoText>
+      <WrapTodo>
+        <Label>
+          <input
+            type="checkbox"
+            name="agreed"
+            checked={completed}
+            onChange={() => onTogleCompleted(id)}
+          />
+          <span>Completed:</span>
+        </Label>
+        <Button type="button" onClick={() => onDeleteTodo(id)}>
+          <FaRegTrashAlt />
+        </Button>
+      </WrapTodo>
+    </Item>
   );
 };

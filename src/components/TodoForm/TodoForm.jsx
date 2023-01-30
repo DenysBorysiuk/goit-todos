@@ -1,3 +1,5 @@
+import { Form, FormBtn, Input } from './TodoForm.styled';
+
 export const TodoForm = ({ addTodo }) => {
   const handleSubmit = e => {
     e.preventDefault();
@@ -7,11 +9,9 @@ export const TodoForm = ({ addTodo }) => {
     form.reset();
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        <input type="text" name="text" />
-      </label>
-      <button type="submit">add</button>
-    </form>
+    <Form onSubmit={handleSubmit}>
+      <Input type="text" name="text" placeholder="Type your todo" />
+      <FormBtn type="submit">Add</FormBtn>
+    </Form>
   );
 };
