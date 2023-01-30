@@ -4,11 +4,10 @@ import { TodoList } from './TodoList/TodoList';
 import { TodoForm } from './TodoForm/TodoForm';
 import { Subtitle } from './Subtitle/Subtitle';
 import { Title, Container, Lists } from './App.styled';
-import initialTodos from 'data/initialTodos.json';
 
 export const App = () => {
   const [todos, setTodos] = useState(
-    () => JSON.parse(window.localStorage.getItem('todos')) ?? [initialTodos]
+    () => JSON.parse(window.localStorage.getItem('todos')) ?? []
   );
 
   useEffect(() => {
