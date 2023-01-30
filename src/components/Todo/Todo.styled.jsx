@@ -7,7 +7,6 @@ export const Item = styled.li`
   gap: 8px;
   border: solid 2px rgba(0, 41, 8, 0.6);
   border-radius: 5px;
-  width: 240px;
   padding: 4px;
 `;
 
@@ -21,7 +20,7 @@ export const WrapTodo = styled.div`
 `;
 
 export const Label = styled.label`
-  // cursor: pointer;
+  cursor: pointer;
   color: rgba(0, 41, 8, 0.6);
 
   > span {
